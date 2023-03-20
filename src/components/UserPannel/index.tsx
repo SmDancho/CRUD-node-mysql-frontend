@@ -8,7 +8,7 @@ import { user } from '../../types';
 export const Pannel = () => {
   const [users, setData] = useState<user[]>([]);
 
-  const [currentUser, setCurrentUser] = useState<any>([]);
+  const [currentUser, setCurrentUser] = useState<user>();
   const [status, setStatus] = useState();
   const [token, setToken] = useState(sessionStorage.getItem('token'));
 
@@ -16,15 +16,15 @@ export const Pannel = () => {
   const [userIds, setUserIds] = useState<string[]>([]);
   const navigate = useNavigate();
 
-  const ref = useRef<any>();
+  const ref = useRef<HTMLInputElement>(null);
 
-  const { name } = currentUser;
+  const name = currentUser?.name;
 
   if (status === 'blocked') {
     navigate('/');
   }
   const handleBlock = () => {
-    userIds.map((id: any) => {
+    userIds.map((id) => {
       console.log(id);
       if (currentUserid === id) {
         localStorage.removeItem('token');
@@ -34,26 +34,30 @@ export const Pannel = () => {
         .post('http://localhost:5000/auth/block', { id: id })
         .then((response) => {
           setStatus(response.data);
-          ref.current.checked = false;
+          if (ref.current != null) {
+            ref.current.checked = false;
+          }
           setUserIds([]);
         });
     });
   };
 
   const handleUnBlock = () => {
-    userIds.map((id: any) => {
+    userIds.map((id) => {
       return axios
         .post('http://localhost:5000/auth/unblock', { id: id })
         .then((response) => {
           setStatus(response.data);
-          ref.current.checked = false;
+          if (ref.current != null) {
+            ref.current.checked = false;
+          }
           setUserIds([]);
         });
     });
   };
 
   const handledelete = () => {
-    userIds.map((id: any) => {
+    userIds.map((id) => {
       if (currentUserid === id) {
         localStorage.removeItem('token');
         navigate('/');
@@ -62,7 +66,9 @@ export const Pannel = () => {
         .post('http://localhost:5000/auth/delete', { id: id })
         .then((response) => {
           setStatus(response.data);
-          ref.current.checked = false;
+          if (ref.current != null) {
+            ref.current.checked = false;
+          }
           setUserIds([]);
         });
     });
@@ -96,7 +102,6 @@ export const Pannel = () => {
     getCurrentUser();
     getAllUsers();
   }, [status, token]);
-  console.log(userIds);
   return (
     <div className="w-[1280px] m-auto ">
       <div className="w-full h-[100vh]">
