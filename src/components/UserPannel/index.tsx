@@ -31,7 +31,7 @@ export const Pannel = () => {
         navigate('/');
       }
       return axios
-        .post('http://localhost:5000/auth/block', { id: id })
+        .post('https://crud-node-mysql-backend.vercel.app/auth/block', { id: id })
         .then((response) => {
           setStatus(response.data);
           if (ref.current != null) {
@@ -45,7 +45,7 @@ export const Pannel = () => {
   const handleUnBlock = () => {
     userIds.map((id) => {
       return axios
-        .post('http://localhost:5000/auth/unblock', { id: id })
+        .post('https://crud-node-mysql-backend.vercel.app/auth/unblock', { id: id })
         .then((response) => {
           setStatus(response.data);
           if (ref.current != null) {
@@ -63,7 +63,7 @@ export const Pannel = () => {
         navigate('/');
       }
       return axios
-        .post('http://localhost:5000/auth/delete', { id: id })
+        .post('https://crud-node-mysql-backend.vercel.app/auth/delete', { id: id })
         .then((response) => {
           setStatus(response.data);
           if (ref.current != null) {
@@ -76,7 +76,7 @@ export const Pannel = () => {
 
   const getAllUsers = () => {
     axios
-      .get('http://localhost:5000/auth/users', {
+      .get('https://crud-node-mysql-backend.vercel.app/auth/users', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -86,7 +86,7 @@ export const Pannel = () => {
 
   const getCurrentUser = () => {
     axios
-      .get('http://localhost:5000/auth/getme', {
+      .get('https://crud-node-mysql-backend.vercel.app/auth/getme', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

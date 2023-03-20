@@ -14,7 +14,7 @@ export const AuthForm = () => {
   const handleSubmit = () => {
     axios
       .post(
-        `http://localhost:5000/auth/${authState ? 'login' : 'registration'}`,
+        `https://crud-node-mysql-backend.vercel.app/auth/${authState ? 'login' : 'registration'}`,
         {
           name,
           mail,
